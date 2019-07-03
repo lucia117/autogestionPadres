@@ -12,6 +12,7 @@
     <preference name="android-minSdkVersion" value="16" />
     
     <plugin name="cordova-plugin-network-information" source="npm" spec="~1.2.0" />
+    <plugin name="cordova-plugin-device" spec="~1.1.1" source="npm"/>
    
     <platform name="android">
         <icon density="ldpi" src="www/res/icon/android/drawable-ldpi-icon.png" />
