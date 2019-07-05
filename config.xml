@@ -1,13 +1,9 @@
-<?xml version='1.0' encoding='utf-8'?>
-<widget id="com.univac.autogestionPadres" version="1.0.0" xmlns="http://www.w3.org/ns/widgets" xmlns:gap="http://phonegap.com/ns/1.0">
-    <name>autogestionPadres</name>
-    <description>
-        Hello World sample application that responds to the deviceready event.
-    </description>
-    <author email="support@phonegap.com" href="http://phonegap.com">
-        PhoneGap Team
-    </author>
-    <content src="index.html" />
+<?xml version="1.0" encoding="UTF-8"?>
+<widget xmlns:gap="http://phonegap.com/ns/1.0" xmlns="http://www.w3.org/ns/widgets" version="3.07.2019" id="com.univac.autogestionPadres">
+<name>El Colegio En Casa </name>
+<description> Aplicación para consultar notas, inasistencias y sanciones de los alumnos que pertenecen a los Colegios que forman parte de este Sitio. Ingrese DNI del alumno del cual desea consultar dicha información. </description>
+<author href="https://www.univac.com.ar" email="univac.isi@gmail.com">UNIVAC Ingenieria en Sistemas de Informacion </author>
+<content src="index.html"/>
     <preference name="DisallowOverscroll" value="true" />
     <preference name="android-minSdkVersion" value="16" />
     
