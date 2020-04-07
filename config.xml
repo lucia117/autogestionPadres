@@ -1,23 +1,16 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<widget xmlns:gap="http://phonegap.com/ns/1.0" xmlns="http://www.w3.org/ns/widgets" version="3.07.2019" id="com.univac.autogestionPadres">
-<name>El Colegio En Casa </name>
-<description> Aplicación para consultar notas, inasistencias y sanciones de los alumnos que pertenecen a los Colegios que forman parte de este Sitio. Ingrese DNI del alumno del cual desea consultar dicha información. </description>
-<author href="https://www.univac.com.ar" email="univac.isi@gmail.com">UNIVAC Ingenieria en Sistemas de Informacion </author>
-<content src="index.html"/>
-    <preference name="DisallowOverscroll" value="true" />
-    <preference name="android-minSdkVersion" value="16" />
+<?xml version='1.0' encoding='utf-8'?>
+<widget id="com.univac.autogestionPadres" version="06.04.2020" xmlns="https://www.w3.org/ns/widgets" xmlns:cdv="http://cordova.apache.org/ns/1.0">
+  <name>UNIVAC Autogestion Padres</name>
+    <description>
+        Sistema de Autogestión para padres. Puede acceder a la información de los alumnos que estén cursando en las instituciones que gestionan la información académica por medio de UNIVAC SGE . La app esta orientada a los niveles iniciales, primario y secundario. Dependiendo del nivel podras consulta notas, inasistencias y sanciones del alumno.
+    </description>
+    <author email="univac.isi@gmail.com" href="https://www.univac.com.ar">
+        UNIVAC Team
+    </author>
+    <content src="index.html" />
+    <plugin name="cordova-plugin-whitelist" spec="1" />
+    <preference name="android-targetSdkVersion" value="28" />
     
-    <plugin name="cordova-plugin-battery-status" spec="~1.1.1" source="npm"/>
-    <plugin name="cordova-plugin-media-capture" spec="~1.2.0" source="npm"/>
-    <plugin name="cordova-plugin-console" spec="~1.0.2" source="npm"/>
-    <plugin name="cordova-plugin-device" spec="~1.1.1" source="npm"/>
-    <plugin name="cordova-plugin-file" spec="~4.1.1" source="npm"/>
-    <plugin name="cordova-plugin-file-transfer" spec="~1.5.0" source="npm"/>
-    <plugin name="cordova-plugin-inappbrowser" spec="~1.3.0" source="npm"/>
-    <plugin name="cordova-plugin-network-information" spec="~1.2.0" source="npm"/>
-    <plugin name="cordova-plugin-splashscreen" spec="~3.2.1" source="npm"/>
-    <plugin name="cordova-plugin-whitelist" spec="~1.2.1" source="npm"/>
-   
     <platform name="android">
         <icon density="ldpi" src="www/res/icon/android/drawable-ldpi-icon.png" />
         <icon density="mdpi" src="www/res/icon/android/drawable-mdpi-icon.png" />
@@ -38,7 +31,6 @@
         <splash density="port-xxhdpi" src="www/res/screen/android/drawable-port-xxhdpi-screen.png" />
         <splash density="port-xxxhdpi" src="www/res/screen/android/drawable-port-xxxhdpi-screen.png" />
     </platform>
-    
     <access origin="*" />
     <allow-intent href="http://*/*" />
     <allow-intent href="https://*/*" />
@@ -49,5 +41,8 @@
     <platform name="android">
         <allow-intent href="market:*" />
     </platform>
-
+    <platform name="ios">
+        <allow-intent href="itms:*" />
+        <allow-intent href="itms-apps:*" />
+    </platform>
 </widget>

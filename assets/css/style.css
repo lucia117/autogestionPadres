@@ -7,7 +7,8 @@ Premium: http://www.gridgum.com
 */
 
 /* Import fonts */
-@import url(http://fonts.googleapis.com/css?family=Ruda:400,700,900);
+@import url(https://fonts.googleapis.com/css?family=Ruda:400,700,900);
+
 
 /* BASIC THEME CONFIGURATION */
 body {
@@ -160,23 +161,13 @@ a, a:hover, a:focus {
 	color: white;
 }
 
-/*
 hr {
   margin-top: 20px;
   margin-bottom: 20px;
   border: 0;
   border-top: 1px solid #797979;
 }
-*/
 
-
-
-hr {
-    height: 4px;
-    margin-left: 15px;
-    margin-bottom:-3px;
-  }
-  
 
 
 /*Helpers*/
@@ -2249,18 +2240,13 @@ label {
 .site-min-height {
     min-height: 900px;
 }
-
-.fb-container{
-    display: flex; /* or inline-flex */
-    justify-content: space-around;
-
-}
-
-.hr-warning {
-
-    height: 6px;
-    color: #ffd777;
-    background-color: #ffd777;
-    border: none;
+@media (max-width: 550px) {
+    h1 { font-size: 25px }
+    .tituloTab {
+        display: none;
+    }
     
 }
+
+
+
