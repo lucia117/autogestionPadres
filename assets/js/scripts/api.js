@@ -396,7 +396,7 @@ var Api = function () {
                         '?codigo=' + objeto.codigo;
                     break;
                 case 'MENSAJES':
-                    ws = '/mensaje/obtener-mensaje' + '?codigo=' + objeto.codigo + '&colegio=' + objeto.colegio;
+                    ws = '/mensaje/obtener-mensaje' + '?codigo=' + objeto.codigo + '&colegio=' + objeto.colegio + '&clave=' + objeto.clave;
                     break;
 
                 case 'SANCIONES':

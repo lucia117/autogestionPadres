@@ -5,6 +5,7 @@ var Notificaciones = function () {
     //variables globales
     var codigo;
     var Colegio;
+    var clave; 
 
 
 
@@ -12,9 +13,11 @@ var Notificaciones = function () {
     var inicializacionDeComponentes = function () {
         codigo = localStorage.getItem('alumno_codigo');
         Colegio = localStorage.getItem('colegio');
+        clave = localStorage.getItem('clave');
 
         var objeto = {
             codigo: codigo,
+            clave: clave,
             colegio: Colegio,
         };
         Api.getStudentData(objeto, 'MENSAJES', Notificaciones.cargarMensajes);
