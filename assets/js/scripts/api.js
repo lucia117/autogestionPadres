@@ -29,7 +29,7 @@ var Api = function () {
     };
 
     var login = function (alumno, usuario, rol, contrasenia, callback) {
-        
+
         var respuesta;
         var url = urlBase + '/alumno/login';
         $.ajax({
@@ -443,6 +443,16 @@ var Api = function () {
                     ws = '/nota/obtener-notas' +
                         '?codigo=' + objeto.codigo +
                         '&nivel=' + objeto.nivel;
+                    break;
+                case 'NOTA_CUALITATIVA':
+                    ws = '/nota/obtener-notas-cuarentena' +
+                        '?codigo=' + objeto.codigo +
+                        '&nivel=' + objeto.nivel;
+                    break;
+
+                case 'OBSERVACION_CUALITATIVA':
+                    ws = '/nota/obtener-observacion-cuarentena' +
+                        '?codigo=' + objeto.codigo;
                     break;
 
                 case 'OBTENER_CONFIGURACION':
