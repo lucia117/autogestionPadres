@@ -30,7 +30,6 @@ var VerAlumno = function () {
                 break;
             case 'P':
                 // Api.getStudentData(objeto, 'NOTA', VerAlumno.cargarNotasPrimario);
-
                 Api.getStudentData(objeto, 'NOTA_CUALITATIVA', VerAlumno.cargarNotasCualitativaMedio);
                 Api.getStudentData(objeto, 'OBSERVACION_CUALITATIVA', VerAlumno.cargarObservacionCuarentena);
 
@@ -39,13 +38,12 @@ var VerAlumno = function () {
                 hodooor();
                 break;
             case 'M':
-                //Api.getStudentData(objeto, 'NOTA', VerAlumno.cargarNotasMedio);
+                Api.getStudentData(objeto, 'NOTA', VerAlumno.cargarNotasMedio);
                 Api.getStudentData(objeto, 'NOTA_CUALITATIVA', VerAlumno.cargarNotasCualitativaMedio);
                 Api.getStudentData(objeto, 'OBSERVACION_CUALITATIVA', VerAlumno.cargarObservacionCuarentena);
 
                 Api.getStudentData(objeto, 'INASISTENCIAS', VerAlumno.cargarListadoInasistencias);
                 Api.getStudentData(objeto, 'SANCIONES', VerAlumno.cargarListadoSanciones);
-
                 $("#medio").removeClass('hide');
                 hodooor();
                 break;
@@ -742,17 +740,20 @@ var VerAlumno = function () {
         cargarNotasCualitativaMedio: function (respuesta) {
             chauHodooor();
             if (respuesta.estado) {
-                var alumno_nivel = localStorage.getItem('alumno_nivel');
-                var colegio = localStorage.getItem('colegio');
-                if (alumno_nivel !== 'P' && colegio !== '0032') {
-                    /*console.log(alumno_nivel + ' lalals ' + colegio);
-                    if (respuesta.objeto.datos_notas.length > 0) {*/
-                    mostrarNotasMedioCualitativa(respuesta.objeto);
+                if (respuesta.objeto.forma_cursado !== 'B') {
+                    var alumno_nivel = localStorage.getItem('alumno_nivel');
+                    var colegio = localStorage.getItem('colegio');
+                    if (alumno_nivel !== 'P' && colegio !== '0032') {
+                        /*console.log(alumno_nivel + ' lalals ' + colegio);
+                        if (respuesta.objeto.datos_notas.length > 0) {*/
+                        mostrarNotasMedioCualitativa(respuesta.objeto);
+                    }
                 }
             } else {
                 alert(respuesta.mensaje);
             }
         },
+
         cargarObservacionCuarentena: function (respuesta) {
             chauHodooor();
 
@@ -790,7 +791,19 @@ var VerAlumno = function () {
         cargarNotasMedio: function (respuesta) {
             chauHodooor();
             if (respuesta.estado) {
-                switch (respuesta.objeto.forma_cursado) {
+                /****ELIMINAR ESTE FRAGMENTO POST CUARENTENA********* */
+                if (respuesta.objeto.forma_cursado == 'B') {
+                    mostrarNotasMedioBimestral(respuesta.objeto.datos_notas);
+                    mostrarNotasMedioCualitativo(respuesta.objeto.datos_notas);
+
+                } else {
+
+                }
+
+                /**************************************************** */
+
+
+                /*switch (respuesta.objeto.forma_cursado) {  ///////DESCOMENTAR ESTO POST CUARENTENA
                     case 'T':
                         mostrarNotasMedio(respuesta.objeto.datos_notas);
                         mostrarNotasMedioCualitativo(respuesta.objeto.datos_notas);
@@ -816,7 +829,7 @@ var VerAlumno = function () {
 
                     default:
                         break;
-                }
+                }*/
                 //mostrarNotasMedio(respuesta.objeto.datos_notas);
             } else {
                 alert(respuesta.mensaje);
