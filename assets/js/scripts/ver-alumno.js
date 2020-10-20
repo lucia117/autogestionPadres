@@ -637,21 +637,35 @@ var VerAlumno = function () {
     var mostrarNotasMedioCualitativa = function (datos) {
         $('#notas_cualitativas_medio').removeClass('hide');
 
-        var contenedor = $('#contenedor_materias_cualitativa_medio1');
-        var itemPadre = $('#card_medio_cualitativo1');
+        var contenedor1 = $('#contenedor_materias_cualitativa_medio1');
+        var itemPadre1 = $('#card_medio_cualitativo1');
+
+        var contenedor2 = $('#contenedor_materias_cualitativa_medio2');
+        var itemPadre2 = $('#card_medio_cualitativo2');
+
+        var contenedor3 = $('#contenedor_materias_cualitativa_medio3');
+        var itemPadre3 = $('#card_medio_cualitativo3');
 
 
         if (datos.datos_notas.length > 0) {
 
             $('#tabla_medio_cualitativo1').removeClass('hide');
+            $('#tabla_medio_cualitativo2').removeClass('hide');
+            $('#tabla_medio_cualitativo3').removeClass('hide');
             var data = datos.datos_notas;
 
             $('#titulo1').removeClass('hide');
-            $('#titulo1').text('PERÍODO MARZO - JUNIO 2020');
+            $('#titulo1').text('PERIODO MARZO - JUNIO 2020');
+
+            $('#titulo2').removeClass('hide');
+            $('#titulo2').text('PERIODO JULIO - OCTUBRE 2020');
+
+            $('#titulo3').removeClass('hide');
+            $('#titulo3').text('PERIODO NOVIEMBRE - DICIEMBRE 2020');
             //console.table(data);
 
             $.each(data, function (ind, elem) {
-                var item = itemPadre.clone(true, true);
+                let item = itemPadre1.clone(true, true);
                 item.attr('id', 'row' + (ind));
                 item.removeClass('hide');
 
@@ -661,7 +675,35 @@ var VerAlumno = function () {
                 } else {
                     item.find('.observacionMateriaCualitativo1').text(elem.o1);
                 }
-                contenedor.append(item);
+                contenedor1.append(item);
+            });
+
+            $.each(data, function (ind, elem2) {
+                let item2 = itemPadre2.clone(true, true);
+                //item2.attr('id', 'row' + (ind));
+                item2.removeClass('hide');
+
+                item2.find('.nombreMateriaCualitativo2').text(elem2.materia);
+                if (elem2.o2 === null || elem2.o2 === undefined || elem2.o2 === "") {
+                    item2.find('.observacionMateriaCualitativo2').text("");
+                } else {
+                    item2.find('.observacionMateriaCualitativo2').text(elem2.o2);
+                }
+                contenedor2.append(item2);
+            });
+
+            $.each(data, function (ind, elem3) {
+                let item3 = itemPadre3.clone(true, true);
+                //item3.attr('id', 'row' + (ind));
+                item3.removeClass('hide');
+
+                item3.find('.nombreMateriaCualitativo3').text(elem3.materia);
+                if (elem3.o3 === null || elem3.o3 === undefined || elem3.o3 === "") {
+                    item3.find('.observacionMateriaCualitativo3').text("");
+                } else {
+                    item3.find('.observacionMateriaCualitativo3').text(elem3.o3);
+                }
+                contenedor3.append(item3);
             });
 
         } else {
@@ -670,12 +712,18 @@ var VerAlumno = function () {
         }
 
     };
-
-    //OBSERVACIONES CUARENTENA 
+	
+  //OBSERVACIONES CUARENTENA 
     var mostrarObservacionCuarentena = function (datos) {
         //console.table(datos);
         $('#observacion1').removeClass('hide');
-        $('#mensajeObservacion').text(datos[0].obs_1);
+        $('#mensajeObservacion1').text(datos[0].obs_1);
+
+        $('#observacion2').removeClass('hide');
+        $('#mensajeObservacion2').text(datos[0].obs_2);
+
+        $('#observacion3').removeClass('hide');
+        $('#mensajeObservacion3').text(datos[0].obs_3);
 
     };
     //metodos publicos
