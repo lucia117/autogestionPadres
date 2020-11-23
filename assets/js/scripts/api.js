@@ -7,6 +7,7 @@ var Api = function () {
     //var urlBase = "http://localhost:8000";       //Local
     //var urlBase = 'http://localhost:8383/gestion-alumno'; 
     //var urlBase = 'http://localhost/apiAutogestion/apigestionalumno'; // API V.2
+    //var urlBase = 'http://localhost/ProyectoAutogestionPadres/apigestionalumno'
 
     //var token = "";
     //metodos privados
@@ -444,6 +445,12 @@ var Api = function () {
                         '?codigo=' + objeto.codigo +
                         '&nivel=' + objeto.nivel;
                     break;
+                
+                case 'NOTA_MEDIO_CUARENTENA':
+                    ws = '/nota/obtener-notas-medio-cuarentena' +
+                        '?codigo=' + objeto.codigo;       
+                    break;
+
                 case 'NOTA_CUALITATIVA':
                     ws = '/nota/obtener-notas-cuarentena' +
                         '?codigo=' + objeto.codigo +

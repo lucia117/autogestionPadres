@@ -101,3 +101,30 @@ function sesionCerrada(){
     }
 }
 
+
+function notaCorrecta(nota){
+    if (nota !== null && nota !== 'null' && nota !== '' && nota !== undefined && nota !== 0 ) {
+        return nota;
+    }else{
+        return '--';
+    }
+}
+
+
+function isEmpty(data) {
+    var r;
+    switch (data) {
+        case "":
+        case undefined:
+        case "undefined":
+        case null:
+        case "null":
+            r = true;
+            break;
+
+        default:
+            r = false;
+            break;
+    }
+    return r;
+}

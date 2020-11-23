@@ -5,19 +5,25 @@ var VerAlumno = function () {
     var codigo;
     var Nivel;
     var Colegio;
+    var Curso;
 
     //metodos privados
     var inicializacionDeComponentes = function () {
         codigo = localStorage.getItem('alumno_codigo');
         Nivel = localStorage.getItem('alumno_nivel');
         Colegio = localStorage.getItem('colegio');
+        Clave = localStorage.getItem('clave');
+        Curso = Clave.substring(1, 2);
 
+        
         var objeto = {
             codigo: codigo,
             nivel: Nivel,
             colegio: Colegio,
+            curso: Curso
 
         };
+        //console.log(objeto); 
         /*Api.getStudentData(objeto, 'DATOS_GENERALES', VerAlumno.cargarDatos);*/
 
 
@@ -29,18 +35,25 @@ var VerAlumno = function () {
                 hodooor();
                 break;
             case 'P':
-                // Api.getStudentData(objeto, 'NOTA', VerAlumno.cargarNotasPrimario);
-                Api.getStudentData(objeto, 'NOTA_CUALITATIVA', VerAlumno.cargarNotasCualitativaMedio);
+                Api.getStudentData(objeto, 'NOTA', VerAlumno.cargarNotasPrimario);
+                Api.getStudentData(objeto, 'NOTA_CUALITATIVA', VerAlumno.cargarNotasCualitativaMedio);                
                 Api.getStudentData(objeto, 'OBSERVACION_CUALITATIVA', VerAlumno.cargarObservacionCuarentena);
-
                 Api.getStudentData(objeto, 'INASISTENCIAS', VerAlumno.cargarListadoInasistencias);
+                $('.nav-item-sanciones').addClass('hide');
                 $("#primario").removeClass('hide');
+                $("#medio").removeClass('hide');
                 hodooor();
                 break;
             case 'M':
-                Api.getStudentData(objeto, 'NOTA', VerAlumno.cargarNotasMedio);
+                
+                if (Curso == 6) {
+                    Api.getStudentData(objeto, 'NOTA', VerAlumno.cargarNotasMedio);      
+                }else {
+                    Api.getStudentData(objeto, 'NOTA_MEDIO_CUARENTENA', VerAlumno.cargarNotasMedioCuarentena);}
+                         
                 Api.getStudentData(objeto, 'NOTA_CUALITATIVA', VerAlumno.cargarNotasCualitativaMedio);
                 Api.getStudentData(objeto, 'OBSERVACION_CUALITATIVA', VerAlumno.cargarObservacionCuarentena);
+
 
                 Api.getStudentData(objeto, 'INASISTENCIAS', VerAlumno.cargarListadoInasistencias);
                 Api.getStudentData(objeto, 'SANCIONES', VerAlumno.cargarListadoSanciones);
@@ -275,7 +288,7 @@ var VerAlumno = function () {
 
     //PRIMARIO
     var mostrarNotasPrimario = function (datos) {
-
+        //console.log(datos); 
         var d = '<tr>' +
             '<th>Materia</th>' +
             '<th class="text-center"><small>Primer Trimestre</small></th>' +
@@ -286,10 +299,10 @@ var VerAlumno = function () {
 
         for (var i = 0; i < datos.length; i++) {
             d += '<tr>' +
-                '<td class="text-center">' + datos[i].nombre + '</td>' +
-                '<td class="text-center">' + datos[i].e_1 + '</td>' +
-                '<td class="text-center">' + datos[i].e_2 + '</td>' +
-                '<td lass="text-center">' + datos[i].e_3 + '</td>' +
+                '<td class="">' + notaCorrecta(datos[i].nombre) + '</td>' +
+                '<td class="text-center">' + notaCorrecta(datos[i].e_1) + '</td>' +
+                '<td class="text-center">' + notaCorrecta(datos[i].e_2) + '</td>' +
+                '<td lass="text-center">' + notaCorrecta(datos[i].e_3) + '</td>' +
                 '</tr>';
 
         }
@@ -410,6 +423,27 @@ var VerAlumno = function () {
         }
         $("#tablaTercerTrimestreM").append(d);
         $("#cargarNotasTrimestralM").removeClass('hide');
+    };
+
+    
+    var mostrarNotasMedioCuarentena = function (datos) {
+        var d = '<tr>' +
+                    '<th>Materia</th>' +
+                    '<th>c1</th>' +
+                    '<th>c2</th>' +
+                    '<th>Definitiva</th>' +
+                '</tr>';
+        for (var i = 0; i < datos.length; i++) {
+            d += '<tr>' +
+                    '<td>' + datos[i].nombre + '</td>' +
+                    '<td>' + notaCorrecta(datos[i].r343_1) + '</td>' +
+                    '<td>' + notaCorrecta(datos[i].r343_2) + '</td>' +
+                    '<td>' + notaCorrecta(datos[i].definitiva) + '</td>' +
+                '</tr>';
+        }
+        $("#tablaNotasMedioCuarentena").append(d);
+
+        $("#mostrarNotasMedioCuarentena").removeClass('hide');
     };
 
     //MEDIO NOCTURNO 
@@ -655,13 +689,13 @@ var VerAlumno = function () {
             var data = datos.datos_notas;
 
             $('#titulo1').removeClass('hide');
-            $('#titulo1').text('PERIODO MARZO - JUNIO 2020');
+            $('#titulo1').text('1° PERIODO ');
 
             $('#titulo2').removeClass('hide');
-            $('#titulo2').text('PERIODO JULIO - OCTUBRE 2020');
+            $('#titulo2').text('2° PERIODO ');
 
             $('#titulo3').removeClass('hide');
-            $('#titulo3').text('PERIODO NOVIEMBRE - DICIEMBRE 2020');
+            $('#titulo3').text('3° PERIODO ');
             //console.table(data);
 
             $.each(data, function (ind, elem) {
@@ -712,18 +746,24 @@ var VerAlumno = function () {
         }
 
     };
-	
-  //OBSERVACIONES CUARENTENA 
+
+    //OBSERVACIONES CUARENTENA 
     var mostrarObservacionCuarentena = function (datos) {
-        //console.table(datos);
-        $('#observacion1').removeClass('hide');
-        $('#mensajeObservacion1').text(datos[0].obs_1);
+        
+        if (!isEmpty(datos[0].obs_1)) {
+            $('#observacion1').removeClass('hide');
+            $('#mensajeObservacion1').text(datos[0].obs_1);
+        }
 
-        $('#observacion2').removeClass('hide');
-        $('#mensajeObservacion2').text(datos[0].obs_2);
-
-        $('#observacion3').removeClass('hide');
-        $('#mensajeObservacion3').text(datos[0].obs_3);
+        if (!isEmpty(datos[0].obs_2)) {
+            $('#observacion2').removeClass('hide');
+            $('#mensajeObservacion2').text(datos[0].obs_2);
+        }
+       
+        if(!isEmpty(datos[0].obs_3)){
+            $('#observacion3').removeClass('hide');
+            $('#mensajeObservacion3').text(datos[0].obs_3);
+        }
 
     };
     //metodos publicos
@@ -808,7 +848,7 @@ var VerAlumno = function () {
             //console.log(respuesta.objeto[0].obs_1);
             //console.table(respuesta.objeto);
             if (respuesta.objeto.length > 0) {
-                console.log('muestro observacion');
+                //console.log('muestro observacion');
                 mostrarObservacionCuarentena(respuesta.objeto);
             } else {
                 console.log('no muestro observacion');
@@ -827,31 +867,51 @@ var VerAlumno = function () {
 
         //PRIMARIO
         cargarNotasPrimario: function (respuesta) {
+            //console.log(respuesta.objeto.datos_notas);
             chauHodooor();
             if (respuesta.estado) {
-                mostrarNotasPrimario(respuesta.objeto);
+                mostrarNotasPrimario(respuesta.objeto.datos_notas);
             } else {
                 alert(respuesta.mensaje);
             }
         },
 
         //MEDIO
-        cargarNotasMedio: function (respuesta) {
+
+
+        /****ELIMINAR ESTE FRAGMENTO POST CUARENTENA********* */
+        cargarNotasMedioCualitativo : function (respuesta) {
             chauHodooor();
             if (respuesta.estado) {
-                /****ELIMINAR ESTE FRAGMENTO POST CUARENTENA********* */
+
                 if (respuesta.objeto.forma_cursado == 'B') {
                     mostrarNotasMedioBimestral(respuesta.objeto.datos_notas);
                     mostrarNotasMedioCualitativo(respuesta.objeto.datos_notas);
 
                 } else {
 
-                }
+                }    
+            } else {
+                alert(respuesta.mensaje);
+            }
+        },
 
-                /**************************************************** */
+        //MEDIO CUARENTENA (eliminar cuando pase todo esto )
+        cargarNotasMedioCuarentena: function (respuesta) {
+            chauHodooor();
+            if (respuesta.estado) {                
+                mostrarNotasMedioCuarentena(respuesta.objeto);
+            } else {
+                alert(respuesta.mensaje);
+            }
+        },
 
+        /**************************************************** */
 
-                /*switch (respuesta.objeto.forma_cursado) {  ///////DESCOMENTAR ESTO POST CUARENTENA
+        cargarNotasMedio: function (respuesta) {
+            chauHodooor();
+            if (respuesta.estado) {
+                switch (respuesta.objeto.forma_cursado) {  ///////DESCOMENTAR ESTO POST CUARENTENA
                     case 'T':
                         mostrarNotasMedio(respuesta.objeto.datos_notas);
                         mostrarNotasMedioCualitativo(respuesta.objeto.datos_notas);
@@ -877,7 +937,7 @@ var VerAlumno = function () {
 
                     default:
                         break;
-                }*/
+                }
                 //mostrarNotasMedio(respuesta.objeto.datos_notas);
             } else {
                 alert(respuesta.mensaje);
@@ -919,9 +979,7 @@ var VerAlumno = function () {
                 alert(respuesta.mensaje);
             }
         },
-        setExample: function (g) {
-            mostrarExamples(g);
-        }
+        
     };
 
 
