@@ -680,13 +680,16 @@ var VerAlumno = function () {
         var contenedor3 = $('#contenedor_materias_cualitativa_medio3');
         var itemPadre3 = $('#card_medio_cualitativo3');
 
+		var contenedor4 = $('#contenedor_materias_cualitativa_medio4');
+        var itemPadre4 = $('#card_medio_cualitativo4');															   
 
         if (datos.datos_notas.length > 0) {
 
             $('#tabla_medio_cualitativo1').removeClass('hide');
             $('#tabla_medio_cualitativo2').removeClass('hide');
             $('#tabla_medio_cualitativo3').removeClass('hide');
-            var data = datos.datos_notas;
+            $('#tabla_medio_cualitativo4').removeClass('hide');
+			var data = datos.datos_notas;
 
             $('#titulo1').removeClass('hide');
             $('#titulo1').text('1° PERIODO ');
@@ -696,6 +699,8 @@ var VerAlumno = function () {
 
             $('#titulo3').removeClass('hide');
             $('#titulo3').text('3° PERIODO ');
+			$('#titulo4').removeClass('hide');
+            $('#titulo4').text('VALORACION FINAL');								   
             //console.table(data);
 
             $.each(data, function (ind, elem) {
@@ -740,6 +745,19 @@ var VerAlumno = function () {
                 contenedor3.append(item3);
             });
 
+			$.each(data, function (ind, elem4) {
+                let item4 = itemPadre4.clone(true, true);
+                //item3.attr('id', 'row' + (ind));
+                item4.removeClass('hide');
+
+                item4.find('.nombreMateriaCualitativo4').text(elem4.materia);
+                if (elem4.o4 === null || elem4.o4 === undefined || elem4.o4 === "") {
+                    item4.find('.observacionMateriaCualitativo4').text("");
+                } else {
+                    item4.find('.observacionMateriaCualitativo4').text(elem4.o4);
+                }
+                contenedor4.append(item4);
+            });									
         } else {
             $('#mensaje').removeClass('hide')
             $('#mensaje').html('<tr><td>No hay notas cargadas </td></tr>');
@@ -829,13 +847,14 @@ var VerAlumno = function () {
             chauHodooor();
             if (respuesta.estado) {
                 if (respuesta.objeto.forma_cursado !== 'B') {
-                    var alumno_nivel = localStorage.getItem('alumno_nivel');
+					$('.boton-notas-cualitativa').removeClass('hide');
+					var alumno_nivel = localStorage.getItem('alumno_nivel');
                     var colegio = localStorage.getItem('colegio');
-                    if (alumno_nivel !== 'P' && colegio !== '0032') {
+                    //if (alumno_nivel !== 'P' && colegio !== '0032') {
                         /*console.log(alumno_nivel + ' lalals ' + colegio);
                         if (respuesta.objeto.datos_notas.length > 0) {*/
                         mostrarNotasMedioCualitativa(respuesta.objeto);
-                    }
+                    //}
                 }
             } else {
                 alert(respuesta.mensaje);
@@ -900,7 +919,12 @@ var VerAlumno = function () {
         cargarNotasMedioCuarentena: function (respuesta) {
             chauHodooor();
             if (respuesta.estado) {                
-                mostrarNotasMedioCuarentena(respuesta.objeto);
+				 console.log(respuesta)   ;    
+                if (respuesta.objeto.datosCursado.forma_calificacion == 'B') {
+                    mostrarNotasMedioBimestral(respuesta.objeto.notas);
+                } else {
+                    mostrarNotasMedioCuarentena(respuesta.objeto.notas);
+                }											   
             } else {
                 alert(respuesta.mensaje);
             }
