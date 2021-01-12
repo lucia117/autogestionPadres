@@ -5,17 +5,20 @@ var calificaciones = function () {
     var codigo;
     var Nivel;
     var Colegio;
+    var CLectivo; 				  
 
     //metodos privados
     var inicializacionDeComponentes = function () {
         codigo = localStorage.getItem('alumno_codigo');
         Nivel = localStorage.getItem('alumno_nivel');
         Colegio = localStorage.getItem('colegio');
+        CLectivo = localStorage.getItem('cLectivo');													
 
         var objeto = {
             codigo: codigo,
             nivel: Nivel,
             colegio: Colegio,
+            cLectivo: CLectivo,							   
 
         };
 

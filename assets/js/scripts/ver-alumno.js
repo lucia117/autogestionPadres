@@ -6,6 +6,7 @@ var VerAlumno = function () {
     var Nivel;
     var Colegio;
     var Curso;
+    var CLectivo; 				  
 
     //metodos privados
     var inicializacionDeComponentes = function () {
@@ -14,14 +15,15 @@ var VerAlumno = function () {
         Colegio = localStorage.getItem('colegio');
         Clave = localStorage.getItem('clave');
         Curso = Clave.substring(1, 2);
+        CLectivo = localStorage.getItem('cLectivo');													
 
         
         var objeto = {
             codigo: codigo,
             nivel: Nivel,
             colegio: Colegio,
-            curso: Curso
-
+            curso: Curso,
+            cLectivo : CLectivo
         };
         //console.log(objeto); 
         /*Api.getStudentData(objeto, 'DATOS_GENERALES', VerAlumno.cargarDatos);*/
@@ -924,7 +926,7 @@ var VerAlumno = function () {
                     mostrarNotasMedioBimestral(respuesta.objeto.notas);
                 } else {
                     mostrarNotasMedioCuarentena(respuesta.objeto.notas);
-                }											   
+                }
             } else {
                 alert(respuesta.mensaje);
             }
@@ -1009,10 +1011,6 @@ var VerAlumno = function () {
 
     function formato(texto) {
         return texto.replace(/^(\d{4})-(\d{2})-(\d{2})$/g, '$3/$2/$1');
-    }
-    ;
-
-
-
+    };
 }();
 

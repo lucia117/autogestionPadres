@@ -4,10 +4,6 @@ var Api = function () {
     //variables globales
 
     var urlBase = 'https://www.univac.com.ar/api'; //servidor
-    //var urlBase = "http://localhost:8000";       //Local
-    //var urlBase = 'http://localhost:8383/gestion-alumno'; 
-    //var urlBase = 'http://localhost/apiAutogestion/apigestionalumno'; // API V.2
-    //var urlBase = 'http://localhost/ProyectoAutogestionPadres/apigestionalumno'
 
     //var token = "";
     //metodos privados
@@ -63,6 +59,7 @@ var Api = function () {
                     localStorage.setItem('colegio', data.datos.colegio);
                     localStorage.setItem('rol', rol);
                     localStorage.setItem('clave', data.datos.clave);
+                    localStorage.setItem('cLectivo', data.datos.cLectivo);																		  
 
                     callback(respuesta);
                 } else {
@@ -443,18 +440,21 @@ var Api = function () {
                 case 'NOTA':
                     ws = '/nota/obtener-notas' +
                         '?codigo=' + objeto.codigo +
-                        '&nivel=' + objeto.nivel;
+                        '&nivel=' + objeto.nivel+
+                        '&cLectivo=' + objeto.cLectivo;
                     break;
                 
                 case 'NOTA_MEDIO_CUARENTENA':
                     ws = '/nota/obtener-notas-medio-cuarentena' +
-                        '?codigo=' + objeto.codigo;       
+                        '?codigo=' + objeto.codigo+
+                        '&cLectivo=' + objeto.cLectivo;   		  
                     break;
 
                 case 'NOTA_CUALITATIVA':
                     ws = '/nota/obtener-notas-cuarentena' +
                         '?codigo=' + objeto.codigo +
-                        '&nivel=' + objeto.nivel;
+                        '&nivel=' + objeto.nivel+
+                        '&cLectivo=' + objeto.cLectivo;  
                     break;
 
                 case 'OBSERVACION_CUALITATIVA':
